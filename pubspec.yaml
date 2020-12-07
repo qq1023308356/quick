@@ -1,7 +1,6 @@
 name: quick
 description: A new Flutter package.
 version: 0.0.1
-author:
 homepage: https://github.com/qq1023308356/quick
 
 environment:
@@ -12,11 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  get: ^3.17.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  get: ^3.17.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

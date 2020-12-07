@@ -251,5 +251,5 @@ class QuickAppBarPreferredSize extends PreferredSize {
   }) : super(
             key: key,
             child: child,
-            preferredSize: Size.fromHeight(50));
+            preferredSize: Size.fromHeight(height ?? 50));
 }
