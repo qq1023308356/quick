@@ -602,7 +602,9 @@ class SlidableController {
   Animation<double> _slideAnimation;
 
   SlidableState _activeState;
+
   SlidableState get activeState => _activeState;
+
   set activeState(SlidableState value) {
     if (value == _activeState) {
       return;
@@ -845,18 +847,22 @@ class SlidableState extends State<Slidable>
   }
 
   AnimationController _overallMoveController;
+
   Animation<double> get overallMoveAnimation => _overallMoveController.view;
 
   AnimationController _actionsMoveController;
+
   Animation<double> get actionsMoveAnimation => _actionsMoveController.view;
 
   AnimationController _resizeController;
   Animation<double> _resizeAnimation;
 
   double _dragExtent = 0.0;
+
   double get dragSign => _dragExtent.sign == 0 ? -1.0 : _dragExtent.sign;
 
   SlidableRenderingMode _renderingMode = SlidableRenderingMode.none;
+
   SlidableRenderingMode get renderingMode => _renderingMode;
 
   ScrollPosition _scrollPosition;

@@ -128,12 +128,18 @@ class QuickStyle {
   });
 }
 
-
-class QuickCheck{
+class QuickCheck {
   final String Function(dynamic text) checking;
   final FocusNode focusNode;
   final TextEditingController controller;
   final dynamic data;
   final GestureTapCallback onTap;
-  QuickCheck(this.checking, this.focusNode, {this.controller, this.data, this.onTap,});
+
+  QuickCheck(
+    this.checking,
+    this.focusNode, {
+    this.controller,
+    this.data,
+    this.onTap,
+  });
 }

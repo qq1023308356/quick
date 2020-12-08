@@ -120,10 +120,11 @@ class QuickText extends StatelessWidget {
     this.semanticsLabel,
     this.textWidthBasis,
     this.textHeightBehavior,
-  }) : assert(
-  data is RxString || data is String,
-  'data only is RxString or String',
-  ), super();
+  })  : assert(
+          data is RxString || data is String,
+          'data only is RxString or String',
+        ),
+        super();
 
   @override
   Widget build(BuildContext context) {
@@ -136,15 +137,15 @@ class QuickText extends StatelessWidget {
             key: key,
             style: isTitleStyle
                 ? quickStyle?.titleStyle ??
-                inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
-                inheritedWidget.quickStyle?.titleStyle ??
-                QuickConfig.instance.style?.titleStyle ??
-                null
+                    inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
+                    inheritedWidget.quickStyle?.titleStyle ??
+                    QuickConfig.instance.style?.titleStyle ??
+                    null
                 : quickStyle.detailStyle ??
-                inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
-                inheritedWidget.quickStyle?.detailStyle ??
-                QuickConfig.instance.style?.detailStyle ??
-                null,
+                    inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
+                    inheritedWidget.quickStyle?.detailStyle ??
+                    QuickConfig.instance.style?.detailStyle ??
+                    null,
             strutStyle: strutStyle,
             textAlign: quickStyle?.textAlign ??
                 inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
@@ -173,15 +174,15 @@ class QuickText extends StatelessWidget {
         key: key,
         style: this.isTitleStyle
             ? quickStyle?.titleStyle ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
-            inheritedWidget.quickStyle?.titleStyle ??
-            QuickConfig.instance.style?.titleStyle ??
-            null
+                inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
+                inheritedWidget.quickStyle?.titleStyle ??
+                QuickConfig.instance.style?.titleStyle ??
+                null
             : quickStyle.detailStyle ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
-            inheritedWidget.quickStyle?.detailStyle ??
-            QuickConfig.instance.style?.detailStyle ??
-            null,
+                inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
+                inheritedWidget.quickStyle?.detailStyle ??
+                QuickConfig.instance.style?.detailStyle ??
+                null,
         strutStyle: strutStyle,
         textAlign: textAlign,
         textDirection: textDirection,

@@ -19,10 +19,13 @@ class QuickChecking extends StatelessWidget {
       onTap: () {
         bool isComplete = true;
         for (QuickCheck quickCheck in inheritedWidget.tips) {
-          String tip = quickCheck.checking(quickCheck.controller?.text ?? quickCheck.data) ?? "";
+          String tip = quickCheck
+                  .checking(quickCheck.controller?.text ?? quickCheck.data) ??
+              "";
           if (tip.isNotEmpty) {
             QuickConfig.instance?.errorTip(tip);
-            if (quickCheck.focusNode != null) FocusScope.of(context).requestFocus(quickCheck.focusNode);
+            if (quickCheck.focusNode != null)
+              FocusScope.of(context).requestFocus(quickCheck.focusNode);
             if (quickCheck.onTap != null) quickCheck.onTap();
             isComplete = false;
             return;

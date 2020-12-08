@@ -32,36 +32,38 @@ class QuickTextField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final String Function(dynamic text) checking;
+
   QuickTextField(
-      this.data, {
-        Key key,
-        this.hint,
-        this.quickStyle,
-        this.quickInputType,
-        this.isTitleStyle = true,
-        this.decoration,
-        this.style,
-        this.strutStyle,
-        this.textAlign,
-        this.textDirection,
-        this.locale,
-        this.softWrap,
-        this.overflow,
-        this.textScaleFactor,
-        this.maxLength,
-        this.maxLines,
-        this.semanticsLabel,
-        this.textWidthBasis,
-        this.textHeightBehavior,
-        this.controller,
-        this.focusNode, this.checking,
-      });
+    this.data, {
+    Key key,
+    this.hint,
+    this.quickStyle,
+    this.quickInputType,
+    this.isTitleStyle = true,
+    this.decoration,
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor,
+    this.maxLength,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.controller,
+    this.focusNode,
+    this.checking,
+  });
 
   @override
   State<StatefulWidget> createState() => QuickTextFieldState();
 }
 
-class QuickTextFieldState extends State<QuickTextField>{
+class QuickTextFieldState extends State<QuickTextField> {
   final RxString changed = "".obs;
   TextEditingController controller;
   FocusNode focusNode;
@@ -72,30 +74,30 @@ class QuickTextFieldState extends State<QuickTextField>{
   Worker worker;
   GetStream<String> stream;
   GetStream<String> nullStream = GetStream<String>();
+
   @override
   void initState() {
     super.initState();
     controller = widget.controller ?? TextEditingController();
     focusNode = widget.focusNode ?? FocusNode();
     stream = widget.data.subject;
-    worker = debounce(changed, (_){
+    worker = debounce(changed, (_) {
       widget.data.subject = nullStream;
       widget.data.value = controller.text;
       widget.data.subject = stream;
     }, time: Duration(milliseconds: 200));
     focusNode.addListener(() {
       if (!focusNode.hasFocus) {
-        if(isDouble){
+        if (isDouble) {
           try {
             controller.text = double.parse(controller.text).toString();
-          }catch(e) {
-
-          }
+          } catch (e) {}
         }
         widget.data.value = controller.text;
       }
     });
   }
+
   @override
   void didUpdateWidget(covariant QuickTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -111,8 +113,8 @@ class QuickTextFieldState extends State<QuickTextField>{
     super.dispose();
   }
 
-  remove(){
-    if(quickCheck != null) {
+  remove() {
+    if (quickCheck != null) {
       inheritedWidget.tips.remove(quickCheck);
     }
   }
@@ -121,97 +123,103 @@ class QuickTextFieldState extends State<QuickTextField>{
   Widget build(BuildContext context) {
     inheritedWidget = QuickInheritedWidget.of(context);
     final quickStyle = widget.quickStyle;
-    if(widget.checking != null) {
-      if(quickCheck == null) {
-        quickCheck = QuickCheck(widget.checking, focusNode, controller: controller);
+    if (widget.checking != null) {
+      if (quickCheck == null) {
+        quickCheck =
+            QuickCheck(widget.checking, focusNode, controller: controller);
       }
       inheritedWidget.tips.add(quickCheck);
     }
-    return Obx(() {
-      controller.text = widget.data.toString();
-      return CupertinoTextField(
-        padding: EdgeInsets.all(0),
-        textInputAction: TextInputAction.next,
-        decoration: widget.decoration,
-        enabled: quickStyle?.enabled ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.enabled ??
-            inheritedWidget.quickStyle?.enabled ??
-            QuickConfig.instance.style?.enabled ??
-            null,
-        maxLength: quickStyle?.maxLength ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.maxLength ??
-            inheritedWidget.quickStyle?.maxLength ??
-            QuickConfig.instance.style?.maxLength ??
-            null,
-        maxLines: quickStyle?.maxLines ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.maxLines ??
-            inheritedWidget.quickStyle?.maxLines ??
-            QuickConfig.instance.style?.maxLines ??
-            null,
-        inputFormatters: getInputFormatters(quickStyle?.quickInputType ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.quickInputType ??
-            inheritedWidget.quickStyle?.quickInputType ??
-            QuickConfig.instance.style?.quickInputType ??
-            null),
-        textAlign: quickStyle?.textAlign ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
-            inheritedWidget.quickStyle?.textAlign ??
-            QuickConfig.instance.style?.textAlign ??
-            TextAlign.start,
-        keyboardType: getKeyboardType(),
-        controller: controller,
-        focusNode: focusNode,
-        placeholder: widget.hint,
-        style: widget.isTitleStyle
-            ? quickStyle?.titleStyle ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
-            inheritedWidget.quickStyle?.titleStyle ??
-            QuickConfig.instance.style?.titleStyle ??
-            null
-            : quickStyle?.detailStyle ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
-            inheritedWidget.quickStyle?.detailStyle ??
-            QuickConfig.instance.style?.detailStyle ??
-            null,
-        placeholderStyle: quickStyle?.hintStyle ??
-            inheritedWidget.getStyle(quickStyle?.copyId)?.hintStyle ??
-            inheritedWidget.quickStyle?.hintStyle ??
-            QuickConfig.instance.style?.hintStyle ??
-            null,
-        onEditingComplete: (){
-          focusNode.nextFocus();
-        },
-        onChanged: (str){
-          changed.value = str;
-        },
-      );
-    },
+    return Obx(
+      () {
+        controller.text = widget.data.toString();
+        return CupertinoTextField(
+          padding: EdgeInsets.all(0),
+          textInputAction: TextInputAction.next,
+          decoration: widget.decoration,
+          enabled: quickStyle?.enabled ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.enabled ??
+              inheritedWidget.quickStyle?.enabled ??
+              QuickConfig.instance.style?.enabled ??
+              null,
+          maxLength: quickStyle?.maxLength ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.maxLength ??
+              inheritedWidget.quickStyle?.maxLength ??
+              QuickConfig.instance.style?.maxLength ??
+              null,
+          maxLines: quickStyle?.maxLines ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.maxLines ??
+              inheritedWidget.quickStyle?.maxLines ??
+              QuickConfig.instance.style?.maxLines ??
+              null,
+          inputFormatters: getInputFormatters(quickStyle?.quickInputType ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.quickInputType ??
+              inheritedWidget.quickStyle?.quickInputType ??
+              QuickConfig.instance.style?.quickInputType ??
+              null),
+          textAlign: quickStyle?.textAlign ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
+              inheritedWidget.quickStyle?.textAlign ??
+              QuickConfig.instance.style?.textAlign ??
+              TextAlign.start,
+          keyboardType: getKeyboardType(),
+          controller: controller,
+          focusNode: focusNode,
+          placeholder: widget.hint,
+          style: widget.isTitleStyle
+              ? quickStyle?.titleStyle ??
+                  inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
+                  inheritedWidget.quickStyle?.titleStyle ??
+                  QuickConfig.instance.style?.titleStyle ??
+                  null
+              : quickStyle?.detailStyle ??
+                  inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
+                  inheritedWidget.quickStyle?.detailStyle ??
+                  QuickConfig.instance.style?.detailStyle ??
+                  null,
+          placeholderStyle: quickStyle?.hintStyle ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.hintStyle ??
+              inheritedWidget.quickStyle?.hintStyle ??
+              QuickConfig.instance.style?.hintStyle ??
+              null,
+          onEditingComplete: () {
+            focusNode.nextFocus();
+          },
+          onChanged: (str) {
+            changed.value = str;
+          },
+        );
+      },
     );
   }
 
-  TextInputType getKeyboardType(){
-    if(quickInputType == QuickInputType.Double || quickInputType == QuickInputType.Int){
+  TextInputType getKeyboardType() {
+    if (quickInputType == QuickInputType.Double ||
+        quickInputType == QuickInputType.Int) {
       return TextInputType.number;
-    }else if(quickInputType == QuickInputType.LetterNumber){
+    } else if (quickInputType == QuickInputType.LetterNumber) {
       return TextInputType.visiblePassword;
-    }else{
+    } else {
       return TextInputType.text;
     }
   }
 
-  List<TextInputFormatter> getInputFormatters(QuickInputType inputType){
+  List<TextInputFormatter> getInputFormatters(QuickInputType inputType) {
     quickInputType = inputType;
     isDouble = false;
-    if(inputType == null){
+    if (inputType == null) {
       return null;
     }
-    switch(inputType){
+    switch (inputType) {
       case QuickInputType.Int:
         return [FilteringTextInputFormatter.digitsOnly];
         break;
       case QuickInputType.Double:
         isDouble = true;
-        return [FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")), PrecisionLimitFormatter(2)];
+        return [
+          FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+          PrecisionLimitFormatter(2)
+        ];
         break;
       case QuickInputType.LetterNumber:
         return [FilteringTextInputFormatter.allow(RegExp(r"[0-9a-zA-Z]"))];
@@ -233,7 +241,8 @@ class PrecisionLimitFormatter extends TextInputFormatter {
   static const String DOUBLE_ZERO = "00";
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.startsWith(POINTER) && newValue.text.length == 1) {
       //第一个不能输入小数点
       return oldValue;
@@ -247,7 +256,8 @@ class PrecisionLimitFormatter extends TextInputFormatter {
     ///包含小数点的情况
     if (newValue.text.contains(POINTER)) {
       ///包含多个小数
-      if (newValue.text.indexOf(POINTER) != newValue.text.lastIndexOf(POINTER)) {
+      if (newValue.text.indexOf(POINTER) !=
+          newValue.text.lastIndexOf(POINTER)) {
         return oldValue;
       }
       String input = newValue.text;
@@ -260,7 +270,9 @@ class PrecisionLimitFormatter extends TextInputFormatter {
       if (lengthAfterPointer > _scale) {
         return oldValue;
       }
-    } else if (newValue.text.startsWith(POINTER) || (newValue.text.startsWith("0") && newValue.text.length >=2) || newValue.text.startsWith(DOUBLE_ZERO)) {
+    } else if (newValue.text.startsWith(POINTER) ||
+        (newValue.text.startsWith("0") && newValue.text.length >= 2) ||
+        newValue.text.startsWith(DOUBLE_ZERO)) {
       ///不包含小数点,不能以“00”开头
       return oldValue;
     }

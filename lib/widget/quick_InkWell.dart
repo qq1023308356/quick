@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../quick.dart';
 import '../quick_style.dart';
 
-class QuickInkWell extends StatefulWidget{
+class QuickInkWell extends StatefulWidget {
   final Widget child;
   final dynamic data;
   final String Function(dynamic data) checking;
@@ -13,21 +13,32 @@ class QuickInkWell extends StatefulWidget{
   final GestureLongPressCallback onLongPress;
   final GestureTapDownCallback onTapDown;
 
-  const QuickInkWell(this.child, {Key key, this.onTap, this.onDoubleTap, this.onLongPress, this.onTapDown, this.checking, this.data,}) : super(key: key);
+  const QuickInkWell(
+    this.child, {
+    Key key,
+    this.onTap,
+    this.onDoubleTap,
+    this.onLongPress,
+    this.onTapDown,
+    this.checking,
+    this.data,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => QuickInkWellState();
 }
 
-class QuickInkWellState extends State<QuickInkWell>{
+class QuickInkWellState extends State<QuickInkWell> {
   QuickCheck quickCheck;
   QuickInheritedWidget inheritedWidget;
 
   @override
   Widget build(BuildContext context) {
     inheritedWidget = QuickInheritedWidget.of(context);
-    if(widget.checking != null) {
-      if(quickCheck == null) {
-        quickCheck = QuickCheck(widget.checking, null, data: widget.data, onTap: widget.onTap);
+    if (widget.checking != null) {
+      if (quickCheck == null) {
+        quickCheck = QuickCheck(widget.checking, null,
+            data: widget.data, onTap: widget.onTap);
       }
       inheritedWidget.tips.add(quickCheck);
     }
@@ -39,7 +50,6 @@ class QuickInkWellState extends State<QuickInkWell>{
       onTapDown: widget.onTapDown,
     );
   }
-
 
   @override
   void didUpdateWidget(covariant QuickInkWell oldWidget) {
@@ -53,8 +63,8 @@ class QuickInkWellState extends State<QuickInkWell>{
     super.dispose();
   }
 
-  remove(){
-    if(quickCheck != null) {
+  remove() {
+    if (quickCheck != null) {
       inheritedWidget.tips.remove(quickCheck);
     }
   }

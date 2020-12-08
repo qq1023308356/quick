@@ -2,6 +2,7 @@ import 'quick.dart';
 
 class QuickConfig {
   factory QuickConfig() => _getInstance();
+
   static QuickConfig get instance => _getInstance();
   static QuickConfig _instance;
 
@@ -15,7 +16,7 @@ class QuickConfig {
     _errorTip = value;
   }
 
-  QuickConfig._internal(){
+  QuickConfig._internal() {
     _setQuickStyle = () => QuickStyle.dad();
   }
 

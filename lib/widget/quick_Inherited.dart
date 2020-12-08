@@ -9,6 +9,7 @@ class QuickInheritedWidget extends InheritedWidget {
   QuickStyle quickStyle;
   final Map<String, QuickStyle> map = Map();
   final List<QuickCheck> tips = List();
+
   QuickInheritedWidget({
     Key key,
     @required Widget child,

@@ -22,11 +22,19 @@ class QuickTile extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => QuickTileState();
 
-  QuickTile(this.title, {this.quickStyle, this.detail, this.hint, this.onTap, this.onLongPress, this.data, this.checking});
+  QuickTile(this.title,
+      {this.quickStyle,
+      this.detail,
+      this.hint,
+      this.onTap,
+      this.onLongPress,
+      this.data,
+      this.checking});
 }
 
 class QuickTileState extends State<QuickTile> {
   bool isDelete = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,9 +55,15 @@ class QuickTileState extends State<QuickTile> {
       list.add(_getEndWidget(inheritedWidget));
     }
     return (widget.quickStyle?.isHide ??
-        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.isHide ??
-        inheritedWidget.quickStyle?.isHide ??
-        false) || isDelete ? SizedBox() : InkWell(child: _getBuild(list, inheritedWidget), onTap: widget.onTap, onLongPress: widget.onLongPress);
+                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.isHide ??
+                inheritedWidget.quickStyle?.isHide ??
+                false) ||
+            isDelete
+        ? SizedBox()
+        : InkWell(
+            child: _getBuild(list, inheritedWidget),
+            onTap: widget.onTap,
+            onLongPress: widget.onLongPress);
   }
 
   Widget _getBuild(List<Widget> list, QuickInheritedWidget inheritedWidget) {
@@ -109,12 +123,12 @@ class QuickTileState extends State<QuickTile> {
           inheritedWidget.quickStyle?.slideList ??
           QuickConfig.instance.style?.slideList;
       List<Widget> actions;
-      if(secondaryActions != null){
+      if (secondaryActions != null) {
         actions = List();
-        for(int i =0; i<secondaryActions.length; i++){
+        for (int i = 0; i < secondaryActions.length; i++) {
           actions.add(GestureDetector(
             child: secondaryActions[i],
-            onTap: (){
+            onTap: () {
               widget.quickStyle?.onSlideTap(i);
             },
           ));
@@ -125,20 +139,21 @@ class QuickTileState extends State<QuickTile> {
         delegate: SlidableScrollDelegate(),
         actionExtentRatio: 0.2,
         movementDuration: const Duration(seconds: 2),
-        secondaryActions: actions ?? <Widget>[
-          SlideAction(
-            child: Icon(
-              Icons.delete,
-              size: 30,
-            ),
-            color: Colors.red,
-            onTap: () {
-              setState(() {
-                isDelete = true;
-              });
-            },
-          ),
-        ],
+        secondaryActions: actions ??
+            <Widget>[
+              SlideAction(
+                child: Icon(
+                  Icons.delete,
+                  size: 30,
+                ),
+                color: Colors.red,
+                onTap: () {
+                  setState(() {
+                    isDelete = true;
+                  });
+                },
+              ),
+            ],
         child: build,
       );
     }
@@ -153,17 +168,23 @@ class QuickTileState extends State<QuickTile> {
           Divider(
             height: 1,
             indent: widget.quickStyle?.dividerPadding ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.dividerPadding ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.dividerPadding ??
                 inheritedWidget.quickStyle?.dividerPadding ??
                 QuickConfig.instance.style?.dividerPadding ??
                 0,
             endIndent: widget.quickStyle?.dividerPadding ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.dividerPadding ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.dividerPadding ??
                 inheritedWidget.quickStyle?.dividerPadding ??
                 QuickConfig.instance.style?.dividerPadding ??
                 0,
             color: widget.quickStyle?.dividerColor ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.dividerColor ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.dividerColor ??
                 inheritedWidget.quickStyle?.dividerColor ??
                 QuickConfig.instance.style?.dividerColor ??
                 null,
@@ -176,7 +197,8 @@ class QuickTileState extends State<QuickTile> {
 
   bool _isAddStartWidget(QuickInheritedWidget inheritedWidget) {
     return widget.quickStyle?.startWidget != null ||
-        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.startWidget != null ||
+        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.startWidget !=
+            null ||
         inheritedWidget.quickStyle?.startWidget != null;
   }
 
@@ -189,7 +211,8 @@ class QuickTileState extends State<QuickTile> {
   Widget _getContentWidget(QuickInheritedWidget inheritedWidget) {
     List<Widget> columnList = List();
     if (widget.quickStyle?.titleWidget != null ||
-        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleWidget != null ||
+        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleWidget !=
+            null ||
         inheritedWidget.quickStyle?.titleWidget != null) {
       columnList.add(widget.quickStyle?.titleWidget ??
           inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleWidget ??
@@ -205,24 +228,35 @@ class QuickTileState extends State<QuickTile> {
       ));
     }
     bool isCustom = (widget.quickStyle?.quickControlType ??
-        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.quickControlType ??
-        inheritedWidget.quickStyle?.quickControlType ?? QuickControlType.Text) == QuickControlType.Custom;
-    if (!isCustom && (widget.quickStyle?.detailWidget != null ||
-        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.detailWidget != null ||
-        inheritedWidget.quickStyle?.detailWidget != null)) {
+            inheritedWidget
+                .getStyle(widget.quickStyle?.copyId)
+                ?.quickControlType ??
+            inheritedWidget.quickStyle?.quickControlType ??
+            QuickControlType.Text) ==
+        QuickControlType.Custom;
+    if (!isCustom &&
+        (widget.quickStyle?.detailWidget != null ||
+            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.detailWidget !=
+                null ||
+            inheritedWidget.quickStyle?.detailWidget != null)) {
       columnList.add(widget.quickStyle?.detailWidget ??
           inheritedWidget.getStyle(widget.quickStyle?.copyId)?.detailWidget ??
           inheritedWidget.quickStyle?.detailWidget);
     } else if (widget.detail != null || isCustom) {
       columnList.add(Expanded(
         flex: widget.quickStyle?.detailFlex ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.detailFlex ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.detailFlex ??
                 inheritedWidget.quickStyle?.detailFlex ??
-                (widget.quickStyle?.axis ?? inheritedWidget.getStyle(widget.quickStyle?.copyId)?.axis ??
-                    inheritedWidget.quickStyle?.axis ??
-                    QuickConfig.instance.style?.axis ??
-                    Axis.horizontal)
-                    == Axis.horizontal
+                (widget.quickStyle?.axis ??
+                        inheritedWidget
+                            .getStyle(widget.quickStyle?.copyId)
+                            ?.axis ??
+                        inheritedWidget.quickStyle?.axis ??
+                        QuickConfig.instance.style?.axis ??
+                        Axis.horizontal) ==
+                    Axis.horizontal
             ? 1
             : 0,
         child: Container(
@@ -234,14 +268,18 @@ class QuickTileState extends State<QuickTile> {
           padding: EdgeInsets.only(
               left: _isHorizontal(inheritedWidget)
                   ? widget.quickStyle?.titleToDetailSpacing ??
-                      inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleToDetailSpacing ??
+                      inheritedWidget
+                          .getStyle(widget.quickStyle?.copyId)
+                          ?.titleToDetailSpacing ??
                       inheritedWidget.quickStyle?.titleToDetailSpacing ??
                       QuickConfig.instance.style?.titleToDetailSpacing ??
                       0
                   : 0,
               top: !_isHorizontal(inheritedWidget)
                   ? widget.quickStyle?.titleToDetailSpacing ??
-                      inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleToDetailSpacing ??
+                      inheritedWidget
+                          .getStyle(widget.quickStyle?.copyId)
+                          ?.titleToDetailSpacing ??
                       inheritedWidget.quickStyle?.titleToDetailSpacing ??
                       QuickConfig.instance.style?.titleToDetailSpacing ??
                       0
@@ -253,13 +291,17 @@ class QuickTileState extends State<QuickTile> {
     return Expanded(
       child: Flex(
         mainAxisAlignment: widget.quickStyle?.mainAxisAlignment ??
-            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.mainAxisAlignment ??
+            inheritedWidget
+                .getStyle(widget.quickStyle?.copyId)
+                ?.mainAxisAlignment ??
             inheritedWidget.quickStyle?.mainAxisAlignment ??
             (_isHorizontal(inheritedWidget)
                 ? MainAxisAlignment.spaceBetween
                 : MainAxisAlignment.center),
         crossAxisAlignment: widget.quickStyle?.crossAxisAlignment ??
-            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.crossAxisAlignment ??
+            inheritedWidget
+                .getStyle(widget.quickStyle?.copyId)
+                ?.crossAxisAlignment ??
             inheritedWidget.quickStyle?.crossAxisAlignment ??
             (_isHorizontal(inheritedWidget)
                 ? CrossAxisAlignment.center
@@ -307,15 +349,34 @@ class QuickTileState extends State<QuickTile> {
         QuickControlType.Text) {
       case QuickControlType.Text:
         contentWidget = QuickText(widget.detail, quickStyle: widget.quickStyle);
-        if(widget.checking != null) {
-          contentWidget = QuickInkWell(contentWidget, checking: widget.checking, data: widget.data, onTap: widget.onTap, onLongPress: widget.onLongPress,);
+        if (widget.checking != null) {
+          contentWidget = QuickInkWell(
+            contentWidget,
+            checking: widget.checking,
+            data: widget.data,
+            onTap: widget.onTap,
+            onLongPress: widget.onLongPress,
+          );
         }
         break;
       case QuickControlType.Input:
-        contentWidget = QuickTextField(widget.detail,checking: widget.checking, quickStyle: widget.quickStyle, hint: widget.hint ?? "请输入" + widget.title, isTitleStyle: false, decoration: BoxDecoration(),);
+        contentWidget = QuickTextField(
+          widget.detail,
+          checking: widget.checking,
+          quickStyle: widget.quickStyle,
+          hint: widget.hint ?? "请输入" + widget.title,
+          isTitleStyle: false,
+          decoration: BoxDecoration(),
+        );
         break;
       case QuickControlType.Custom:
-        contentWidget = QuickInkWell(widget.quickStyle.detailWidget, checking: widget.checking, data: widget.data, onTap: widget.onTap, onLongPress: widget.onLongPress,);
+        contentWidget = QuickInkWell(
+          widget.quickStyle.detailWidget,
+          checking: widget.checking,
+          data: widget.data,
+          onTap: widget.onTap,
+          onLongPress: widget.onLongPress,
+        );
         break;
     }
     return contentWidget;

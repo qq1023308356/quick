@@ -1,6 +1,6 @@
 name: quick_layout
-description: A  new  Flutter  package, 快速布局、和数据双向绑定、响应式布局，布局的样式先取全局，依次父类、拷贝、自己
-version: 0.0.2
+description: A new Flutter package, Quick layout, two-way binding with data, and responsive layout. The layout style takes the global first, followed by parent class, copy, and self
+version: 0.0.3
 homepage: https://github.com/qq1023308356/quick
 
 environment:
