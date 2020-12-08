@@ -172,7 +172,6 @@ class QuickAppBar extends StatefulWidget {
   /// preferred height.
   ///
   /// [Scaffold] uses this size to set its app bar's height.
-  @override
   final Size preferredSize;
 
   QuickAppBar({
