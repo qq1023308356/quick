@@ -43,6 +43,7 @@ class QuickInkWellState extends State<QuickInkWell> {
       inheritedWidget.tips.add(quickCheck);
     }
     return InkWell(
+      focusNode: FocusNode(skipTraversal: true),
       child: widget.child,
       onTap: widget.onTap,
       onDoubleTap: widget.onDoubleTap,

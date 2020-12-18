@@ -156,7 +156,12 @@ class QuickTextFieldState extends State<QuickTextField> {
               inheritedWidget.getStyle(quickStyle?.copyId)?.quickInputType ??
               inheritedWidget.quickStyle?.quickInputType ??
               QuickConfig.instance.style?.quickInputType ??
-              null),
+              null,
+              quickStyle?.inputScale ??
+              inheritedWidget.getStyle(quickStyle?.copyId)?.inputScale ??
+              inheritedWidget.quickStyle?.inputScale ??
+              QuickConfig.instance.style?.inputScale ??
+              2),
           textAlign: quickStyle?.textAlign ??
               inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
               inheritedWidget.quickStyle?.textAlign ??
@@ -204,7 +209,7 @@ class QuickTextFieldState extends State<QuickTextField> {
     }
   }
 
-  List<TextInputFormatter> getInputFormatters(QuickInputType inputType) {
+  List<TextInputFormatter> getInputFormatters(QuickInputType inputType, int scale) {
     quickInputType = inputType;
     isDouble = false;
     if (inputType == null) {
@@ -218,7 +223,7 @@ class QuickTextFieldState extends State<QuickTextField> {
         isDouble = true;
         return [
           FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-          PrecisionLimitFormatter(2)
+          PrecisionLimitFormatter(scale)
         ];
         break;
       case QuickInputType.LetterNumber:

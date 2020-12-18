@@ -61,6 +61,7 @@ class QuickTileState extends State<QuickTile> {
             isDelete
         ? SizedBox()
         : InkWell(
+            focusNode: FocusNode(skipTraversal: true),
             child: _getBuild(list, inheritedWidget),
             onTap: widget.onTap,
             onLongPress: widget.onLongPress);

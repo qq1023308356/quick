@@ -42,6 +42,7 @@ class QuickStyle {
   final bool isSlide;
   final List<Widget> slideList;
   final Function(int) onSlideTap;
+  final int inputScale;
 
   const QuickStyle.dad({
     this.id,
@@ -83,6 +84,7 @@ class QuickStyle {
     this.isHide = false,
     this.dividerPadding = 0,
     this.dividerColor,
+    this.inputScale = 2,
   });
 
   const QuickStyle({
@@ -125,6 +127,7 @@ class QuickStyle {
     this.isHide,
     this.dividerPadding,
     this.dividerColor,
+    this.inputScale,
   });
 }
 
