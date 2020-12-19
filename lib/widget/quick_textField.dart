@@ -110,7 +110,7 @@ class QuickTextFieldState extends State<QuickTextField> {
     focusNode.dispose();
     controller.dispose();
     worker.dispose();
-    if(widget.data.subject.isClosed) {
+    if (widget.data.subject.isClosed) {
       widget.data.close();
     }
     super.dispose();
@@ -155,16 +155,19 @@ class QuickTextFieldState extends State<QuickTextField> {
               inheritedWidget.quickStyle?.maxLines ??
               QuickConfig.instance.style?.maxLines ??
               null,
-          inputFormatters: getInputFormatters(quickStyle?.quickInputType ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.quickInputType ??
-              inheritedWidget.quickStyle?.quickInputType ??
-              QuickConfig.instance.style?.quickInputType ??
-              null,
+          inputFormatters: getInputFormatters(
+              quickStyle?.quickInputType ??
+                  inheritedWidget
+                      .getStyle(quickStyle?.copyId)
+                      ?.quickInputType ??
+                  inheritedWidget.quickStyle?.quickInputType ??
+                  QuickConfig.instance.style?.quickInputType ??
+                  null,
               quickStyle?.inputScale ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.inputScale ??
-              inheritedWidget.quickStyle?.inputScale ??
-              QuickConfig.instance.style?.inputScale ??
-              2),
+                  inheritedWidget.getStyle(quickStyle?.copyId)?.inputScale ??
+                  inheritedWidget.quickStyle?.inputScale ??
+                  QuickConfig.instance.style?.inputScale ??
+                  2),
           textAlign: quickStyle?.textAlign ??
               inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
               inheritedWidget.quickStyle?.textAlign ??
@@ -212,7 +215,8 @@ class QuickTextFieldState extends State<QuickTextField> {
     }
   }
 
-  List<TextInputFormatter> getInputFormatters(QuickInputType inputType, int scale) {
+  List<TextInputFormatter> getInputFormatters(
+      QuickInputType inputType, int scale) {
     quickInputType = inputType;
     isDouble = false;
     if (inputType == null) {

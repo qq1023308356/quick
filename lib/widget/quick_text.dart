@@ -130,8 +130,7 @@ class QuickText extends StatefulWidget {
   State<StatefulWidget> createState() => _QuickTextState();
 }
 
-class _QuickTextState extends State<QuickText>{
-
+class _QuickTextState extends State<QuickText> {
   @override
   Widget build(BuildContext context) {
     final inheritedWidget = QuickInheritedWidget.of(context);
@@ -140,15 +139,17 @@ class _QuickTextState extends State<QuickText>{
       key: widget.key,
       style: widget.isTitleStyle
           ? widget.quickStyle?.titleStyle ??
-          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
-          inheritedWidget.quickStyle?.titleStyle ??
-          QuickConfig.instance.style?.titleStyle ??
-          null
+              inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
+              inheritedWidget.quickStyle?.titleStyle ??
+              QuickConfig.instance.style?.titleStyle ??
+              null
           : widget.quickStyle.detailStyle ??
-          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.detailStyle ??
-          inheritedWidget.quickStyle?.detailStyle ??
-          QuickConfig.instance.style?.detailStyle ??
-          null,
+              inheritedWidget
+                  .getStyle(widget.quickStyle?.copyId)
+                  ?.detailStyle ??
+              inheritedWidget.quickStyle?.detailStyle ??
+              QuickConfig.instance.style?.detailStyle ??
+              null,
       strutStyle: widget.strutStyle,
       textAlign: widget.quickStyle?.textAlign ??
           inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
@@ -171,7 +172,7 @@ class _QuickTextState extends State<QuickText>{
     );
     if (widget.data is RxString) {
       return Obx(
-            () {
+        () {
           return build;
         },
       );
@@ -182,9 +183,9 @@ class _QuickTextState extends State<QuickText>{
 
   @override
   void dispose() {
-    if(widget.data is RxString){
+    if (widget.data is RxString) {
       var rx = (widget.data as RxString);
-      if(rx.subject.isClosed) {
+      if (rx.subject.isClosed) {
         rx.close();
       }
     }
