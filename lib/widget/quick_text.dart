@@ -183,7 +183,10 @@ class _QuickTextState extends State<QuickText>{
   @override
   void dispose() {
     if(widget.data is RxString){
-      (widget.data as RxString).close();
+      var rx = (widget.data as RxString);
+      if(rx.subject.isClosed) {
+        rx.close();
+      }
     }
     super.dispose();
   }
