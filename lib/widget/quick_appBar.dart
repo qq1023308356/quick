@@ -205,10 +205,10 @@ class QuickAppBar extends StatefulWidget {
             kToolbarHeight + (bottom?.preferredSize?.height ?? 0.0));
 
   @override
-  State<StatefulWidget> createState() => QuickAppBarState();
+  State<StatefulWidget> createState() => _QuickAppBarState();
 }
 
-class QuickAppBarState extends State<QuickAppBar> {
+class _QuickAppBarState extends State<QuickAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(

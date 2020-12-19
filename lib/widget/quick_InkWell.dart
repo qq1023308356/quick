@@ -25,10 +25,10 @@ class QuickInkWell extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => QuickInkWellState();
+  State<StatefulWidget> createState() => _QuickInkWellState();
 }
 
-class QuickInkWellState extends State<QuickInkWell> {
+class _QuickInkWellState extends State<QuickInkWell> {
   QuickCheck quickCheck;
   QuickInheritedWidget inheritedWidget;
 

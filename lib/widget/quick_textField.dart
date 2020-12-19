@@ -110,6 +110,7 @@ class QuickTextFieldState extends State<QuickTextField> {
     focusNode.dispose();
     controller.dispose();
     worker.dispose();
+    widget.data.close();
     super.dispose();
   }
 
