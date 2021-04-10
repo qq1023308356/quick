@@ -139,76 +139,48 @@ class _QuickTextState extends State<QuickText> {
     if (widget.data is RxString) {
       return Obx(
         () {
-          return Text(
-            widget.data.toString(),
-            key: widget.key,
-            style: widget.style ?? (widget.isTitleStyle
-                ? widget.quickStyle?.titleStyle ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
-                inheritedWidget.quickStyle?.titleStyle ??
-                QuickConfig.instance.style?.titleStyle ??
-                null
-                : widget.quickStyle.detailStyle ??
-                inheritedWidget
-                    .getStyle(widget.quickStyle?.copyId)
-                    ?.detailStyle ??
-                inheritedWidget.quickStyle?.detailStyle ??
-                QuickConfig.instance.style?.detailStyle ??
-                null),
-            strutStyle: widget.strutStyle,
-            textAlign: widget.textAlign ??
-                widget.quickStyle?.textAlign ??
-                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
-                inheritedWidget.quickStyle?.textAlign ??
-                QuickConfig.instance.style?.textAlign ??
-                null,
-            textDirection: widget.textDirection,
-            locale: widget.locale,
-            softWrap: widget.softWrap,
-            textScaleFactor: widget.textScaleFactor,
-            maxLines: widget.autoLines ? null : 1,
-            overflow: widget.autoLines ? null : TextOverflow.ellipsis,
-            semanticsLabel: widget.semanticsLabel,
-            textWidthBasis: widget.textWidthBasis,
-            textHeightBehavior: widget.textHeightBehavior,
-          );
+          return buildText(inheritedWidget, widget.data.value);
         },
       );
     } else {
-      return Text(
-        widget.data,
-        key: widget.key,
-        style: widget.style ?? (widget.isTitleStyle
-            ? widget.quickStyle?.titleStyle ??
-            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
-            inheritedWidget.quickStyle?.titleStyle ??
-            QuickConfig.instance.style?.titleStyle ??
-            null
-            : widget.quickStyle?.detailStyle ??
-            inheritedWidget
-                .getStyle(widget.quickStyle?.copyId)
-                ?.detailStyle ??
-            inheritedWidget.quickStyle?.detailStyle ??
-            QuickConfig.instance.style?.detailStyle ??
-            null),
-        strutStyle: widget.strutStyle,
-        textAlign: widget.textAlign ??
-            widget.quickStyle?.textAlign ??
-            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
-            inheritedWidget.quickStyle?.textAlign ??
-            QuickConfig.instance.style?.textAlign ??
-            null,
-        textDirection: widget.textDirection,
-        locale: widget.locale,
-        softWrap: widget.softWrap,
-        maxLines: widget.autoLines ? null : 1,
-        overflow: widget.autoLines ? null : TextOverflow.ellipsis,
-        textScaleFactor: widget.textScaleFactor,
-        semanticsLabel: widget.semanticsLabel,
-        textWidthBasis: widget.textWidthBasis,
-        textHeightBehavior: widget.textHeightBehavior,
-      );
+      return buildText(inheritedWidget, widget.data);
     }
+  }
+
+  Text buildText(QuickInheritedWidget inheritedWidget, String text) {
+    return Text(
+      text,
+      key: widget.key,
+      style: widget.style ?? (widget.isTitleStyle
+          ? widget.quickStyle?.titleStyle ??
+          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
+          inheritedWidget.quickStyle?.titleStyle ??
+          QuickConfig.instance.style?.titleStyle ??
+          null
+          : widget.quickStyle?.detailStyle ??
+          inheritedWidget
+              .getStyle(widget.quickStyle?.copyId)
+              ?.detailStyle ??
+          inheritedWidget.quickStyle?.detailStyle ??
+          QuickConfig.instance.style?.detailStyle ??
+          null),
+      strutStyle: widget.strutStyle,
+      textAlign: widget.textAlign ??
+          widget.quickStyle?.textAlign ??
+          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
+          inheritedWidget.quickStyle?.textAlign ??
+          QuickConfig.instance.style?.textAlign ??
+          null,
+      textDirection: widget.textDirection,
+      locale: widget.locale,
+      softWrap: widget.softWrap,
+      maxLines: widget.autoLines ? null : 1,
+      overflow: widget.autoLines ? null : TextOverflow.ellipsis,
+      textScaleFactor: widget.textScaleFactor,
+      semanticsLabel: widget.semanticsLabel,
+      textWidthBasis: widget.textWidthBasis,
+      textHeightBehavior: widget.textHeightBehavior,
+    );
   }
 
   @override
