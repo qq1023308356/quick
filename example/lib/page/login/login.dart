@@ -100,7 +100,7 @@ class LoginWidget extends GetView<LoginController> {
                         "登录/注册",
                         style: TextStyle(
                           fontSize: 15.sp,
-                          color: Color(0xFF333333).auto,
+                          color: Color(0xFF333333),
                           fontWeight: FontWeight.w900,
                         ),
                       ),

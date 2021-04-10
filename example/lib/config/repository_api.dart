@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:tenant_app/entity/UserEntity.dart';
 import 'package:tenant_app/entity/requestData.dart';
-part 'resource_api.g.dart';
+part 'repository_api.g.dart';
 // flutter pub run build_runner build
 @RestApi()
 abstract class ResourceApi {

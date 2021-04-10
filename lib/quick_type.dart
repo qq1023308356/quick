@@ -8,6 +8,7 @@ enum QuickInputType {
   Double,
   LetterNumber,
   String,
+  Multiline,
 }
 enum QuickPopupType {
   SingleChoice,

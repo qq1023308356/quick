@@ -102,6 +102,7 @@ class QuickText extends StatefulWidget {
   final ui.TextHeightBehavior textHeightBehavior;
   final QuickStyle quickStyle;
   final bool isTitleStyle;
+  final bool autoLines;
 
   const QuickText(
     this.data, {
@@ -110,7 +111,7 @@ class QuickText extends StatefulWidget {
     this.isTitleStyle = true,
     this.style,
     this.strutStyle,
-    this.textAlign,
+    this.textAlign = TextAlign.start,
     this.textDirection,
     this.locale,
     this.softWrap,
@@ -120,6 +121,7 @@ class QuickText extends StatefulWidget {
     this.semanticsLabel,
     this.textWidthBasis,
     this.textHeightBehavior,
+    this.autoLines = false,
   })  : assert(
           data is RxString || data is String,
           'data only is RxString or String',
@@ -134,50 +136,78 @@ class _QuickTextState extends State<QuickText> {
   @override
   Widget build(BuildContext context) {
     final inheritedWidget = QuickInheritedWidget.of(context);
-    var build = Text(
-      widget.data is RxString ? widget.data.toString() : widget.data,
-      key: widget.key,
-      style: widget.isTitleStyle
-          ? widget.quickStyle?.titleStyle ??
-              inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
-              inheritedWidget.quickStyle?.titleStyle ??
-              QuickConfig.instance.style?.titleStyle ??
-              null
-          : widget.quickStyle.detailStyle ??
-              inheritedWidget
-                  .getStyle(widget.quickStyle?.copyId)
-                  ?.detailStyle ??
-              inheritedWidget.quickStyle?.detailStyle ??
-              QuickConfig.instance.style?.detailStyle ??
-              null,
-      strutStyle: widget.strutStyle,
-      textAlign: widget.quickStyle?.textAlign ??
-          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
-          inheritedWidget.quickStyle?.textAlign ??
-          QuickConfig.instance.style?.textAlign ??
-          null,
-      textDirection: widget.textDirection,
-      locale: widget.locale,
-      softWrap: widget.softWrap,
-      overflow: widget.overflow,
-      textScaleFactor: widget.textScaleFactor,
-      maxLines: widget.quickStyle?.maxLines ??
-          inheritedWidget.getStyle(widget.quickStyle?.copyId)?.maxLines ??
-          inheritedWidget.quickStyle?.maxLines ??
-          QuickConfig.instance.style?.maxLines ??
-          null,
-      semanticsLabel: widget.semanticsLabel,
-      textWidthBasis: widget.textWidthBasis,
-      textHeightBehavior: widget.textHeightBehavior,
-    );
     if (widget.data is RxString) {
       return Obx(
         () {
-          return build;
+          return Text(
+            widget.data.toString(),
+            key: widget.key,
+            style: widget.style ?? (widget.isTitleStyle
+                ? widget.quickStyle?.titleStyle ??
+                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
+                inheritedWidget.quickStyle?.titleStyle ??
+                QuickConfig.instance.style?.titleStyle ??
+                null
+                : widget.quickStyle.detailStyle ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.detailStyle ??
+                inheritedWidget.quickStyle?.detailStyle ??
+                QuickConfig.instance.style?.detailStyle ??
+                null),
+            strutStyle: widget.strutStyle,
+            textAlign: widget.textAlign ??
+                widget.quickStyle?.textAlign ??
+                inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
+                inheritedWidget.quickStyle?.textAlign ??
+                QuickConfig.instance.style?.textAlign ??
+                null,
+            textDirection: widget.textDirection,
+            locale: widget.locale,
+            softWrap: widget.softWrap,
+            textScaleFactor: widget.textScaleFactor,
+            maxLines: widget.autoLines ? null : 1,
+            overflow: widget.autoLines ? null : TextOverflow.ellipsis,
+            semanticsLabel: widget.semanticsLabel,
+            textWidthBasis: widget.textWidthBasis,
+            textHeightBehavior: widget.textHeightBehavior,
+          );
         },
       );
     } else {
-      return build;
+      return Text(
+        widget.data,
+        key: widget.key,
+        style: widget.style ?? (widget.isTitleStyle
+            ? widget.quickStyle?.titleStyle ??
+            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.titleStyle ??
+            inheritedWidget.quickStyle?.titleStyle ??
+            QuickConfig.instance.style?.titleStyle ??
+            null
+            : widget.quickStyle?.detailStyle ??
+            inheritedWidget
+                .getStyle(widget.quickStyle?.copyId)
+                ?.detailStyle ??
+            inheritedWidget.quickStyle?.detailStyle ??
+            QuickConfig.instance.style?.detailStyle ??
+            null),
+        strutStyle: widget.strutStyle,
+        textAlign: widget.textAlign ??
+            widget.quickStyle?.textAlign ??
+            inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textAlign ??
+            inheritedWidget.quickStyle?.textAlign ??
+            QuickConfig.instance.style?.textAlign ??
+            null,
+        textDirection: widget.textDirection,
+        locale: widget.locale,
+        softWrap: widget.softWrap,
+        maxLines: widget.autoLines ? null : 1,
+        overflow: widget.autoLines ? null : TextOverflow.ellipsis,
+        textScaleFactor: widget.textScaleFactor,
+        semanticsLabel: widget.semanticsLabel,
+        textWidthBasis: widget.textWidthBasis,
+        textHeightBehavior: widget.textHeightBehavior,
+      );
     }
   }
 

@@ -21,6 +21,7 @@ class QuickTextField extends StatefulWidget {
   final double textScaleFactor;
   final int maxLength;
   final int maxLines;
+  final double height;
   final String semanticsLabel;
   final TextWidthBasis textWidthBasis;
   final ui.TextHeightBehavior textHeightBehavior;
@@ -32,6 +33,10 @@ class QuickTextField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final String Function(dynamic text) checking;
+  final ValueChanged<String> onChanged;
+  final bool autoFocus;
+  final AlignmentGeometry alignment;
+  final EdgeInsetsGeometry padding;
 
   QuickTextField(
     this.data, {
@@ -39,11 +44,11 @@ class QuickTextField extends StatefulWidget {
     this.hint,
     this.quickStyle,
     this.quickInputType,
-    this.isTitleStyle = true,
+    this.isTitleStyle = false,
     this.decoration,
     this.style,
     this.strutStyle,
-    this.textAlign,
+    this.textAlign = TextAlign.start,
     this.textDirection,
     this.locale,
     this.softWrap,
@@ -57,6 +62,11 @@ class QuickTextField extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.checking,
+    this.height,
+    this.onChanged,
+    this.autoFocus = false,
+    this.alignment = Alignment.center,
+    this.padding,
   });
 
   @override
@@ -126,6 +136,11 @@ class QuickTextFieldState extends State<QuickTextField> {
   Widget build(BuildContext context) {
     inheritedWidget = QuickInheritedWidget.of(context);
     final quickStyle = widget.quickStyle;
+    final textInputAction = quickStyle?.textInputAction ??
+        inheritedWidget.getStyle(widget.quickStyle?.copyId)?.textInputAction ??
+        inheritedWidget.quickStyle?.textInputAction ??
+        QuickConfig.instance.style?.textInputAction ??
+        TextInputAction.next;
     if (widget.checking != null) {
       if (quickCheck == null) {
         quickCheck =
@@ -136,69 +151,97 @@ class QuickTextFieldState extends State<QuickTextField> {
     return Obx(
       () {
         controller.text = widget.data.toString();
-        return CupertinoTextField(
-          padding: EdgeInsets.all(0),
-          textInputAction: TextInputAction.next,
-          decoration: widget.decoration,
-          enabled: quickStyle?.enabled ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.enabled ??
-              inheritedWidget.quickStyle?.enabled ??
-              QuickConfig.instance.style?.enabled ??
-              null,
-          maxLength: quickStyle?.maxLength ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.maxLength ??
-              inheritedWidget.quickStyle?.maxLength ??
-              QuickConfig.instance.style?.maxLength ??
-              null,
-          maxLines: quickStyle?.maxLines ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.maxLines ??
-              inheritedWidget.quickStyle?.maxLines ??
-              QuickConfig.instance.style?.maxLines ??
-              null,
-          inputFormatters: getInputFormatters(
-              quickStyle?.quickInputType ??
-                  inheritedWidget
-                      .getStyle(quickStyle?.copyId)
-                      ?.quickInputType ??
-                  inheritedWidget.quickStyle?.quickInputType ??
-                  QuickConfig.instance.style?.quickInputType ??
-                  null,
-              quickStyle?.inputScale ??
-                  inheritedWidget.getStyle(quickStyle?.copyId)?.inputScale ??
-                  inheritedWidget.quickStyle?.inputScale ??
-                  QuickConfig.instance.style?.inputScale ??
-                  2),
-          textAlign: quickStyle?.textAlign ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
-              inheritedWidget.quickStyle?.textAlign ??
-              QuickConfig.instance.style?.textAlign ??
-              TextAlign.start,
-          keyboardType: getKeyboardType(),
-          controller: controller,
-          focusNode: focusNode,
-          placeholder: widget.hint,
-          style: widget.isTitleStyle
-              ? quickStyle?.titleStyle ??
-                  inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
-                  inheritedWidget.quickStyle?.titleStyle ??
-                  QuickConfig.instance.style?.titleStyle ??
-                  null
-              : quickStyle?.detailStyle ??
-                  inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
-                  inheritedWidget.quickStyle?.detailStyle ??
-                  QuickConfig.instance.style?.detailStyle ??
-                  null,
-          placeholderStyle: quickStyle?.hintStyle ??
-              inheritedWidget.getStyle(quickStyle?.copyId)?.hintStyle ??
-              inheritedWidget.quickStyle?.hintStyle ??
-              QuickConfig.instance.style?.hintStyle ??
-              null,
-          onEditingComplete: () {
-            focusNode.nextFocus();
-          },
-          onChanged: (str) {
-            changed.value = str;
-          },
+        controller.selection = TextSelection.fromPosition(TextPosition(
+            affinity: TextAffinity.downstream, offset: controller.text.length));
+        return Container(
+          padding: widget.padding,
+          height: widget.height,
+          alignment: widget.alignment,
+          child: CupertinoTextField(
+            padding: const EdgeInsets.all(0),
+            autofocus: widget.autoFocus,
+            showCursor: true,
+            decoration: widget.decoration,
+            obscureText: quickStyle?.obscureText ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.obscureText ??
+                inheritedWidget.quickStyle?.obscureText ??
+                QuickConfig.instance.style?.obscureText ??
+                null,
+            enabled: quickStyle?.enabled ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.enabled ??
+                inheritedWidget.quickStyle?.enabled ??
+                QuickConfig.instance.style?.enabled ??
+                null,
+            maxLength: quickStyle?.maxLength ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.maxLength ??
+                inheritedWidget.quickStyle?.maxLength ??
+                QuickConfig.instance.style?.maxLength ??
+                null,
+            maxLines: quickStyle?.maxLines ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.maxLines ??
+                inheritedWidget.quickStyle?.maxLines ??
+                QuickConfig.instance.style?.maxLines ??
+                null,
+            inputFormatters: getInputFormatters(
+                quickStyle?.quickInputType ??
+                    inheritedWidget
+                        .getStyle(quickStyle?.copyId)
+                        ?.quickInputType ??
+                    inheritedWidget.quickStyle?.quickInputType ??
+                    QuickConfig.instance.style?.quickInputType ??
+                    null,
+                quickStyle?.inputScale ??
+                    inheritedWidget.getStyle(quickStyle?.copyId)?.inputScale ??
+                    inheritedWidget.quickStyle?.inputScale ??
+                    QuickConfig.instance.style?.inputScale ??
+                    2),
+            textAlign: widget.textAlign ??
+                quickStyle?.textAlign ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.textAlign ??
+                inheritedWidget.quickStyle?.textAlign ??
+                QuickConfig.instance.style?.textAlign ??
+                TextAlign.start,
+            keyboardType: getKeyboardType(),
+            controller: controller,
+            focusNode: focusNode,
+            placeholder: widget.hint,
+            style: widget.isTitleStyle
+                ? quickStyle?.titleStyle ??
+                    inheritedWidget.getStyle(quickStyle?.copyId)?.titleStyle ??
+                    inheritedWidget.quickStyle?.titleStyle ??
+                    QuickConfig.instance.style?.titleStyle ??
+                    null
+                : quickStyle?.detailStyle ??
+                    inheritedWidget.getStyle(quickStyle?.copyId)?.detailStyle ??
+                    inheritedWidget.quickStyle?.detailStyle ??
+                    QuickConfig.instance.style?.detailStyle ??
+                    null,
+            placeholderStyle: quickStyle?.hintStyle ??
+                inheritedWidget.getStyle(quickStyle?.copyId)?.hintStyle ??
+                inheritedWidget.quickStyle?.hintStyle ??
+                QuickConfig.instance.style?.hintStyle ??
+                null,
+            onEditingComplete: () {
+              if (textInputAction == TextInputAction.next) {
+                focusNode.nextFocus();
+              } else if (textInputAction == TextInputAction.previous) {
+                focusNode.previousFocus();
+              }
+            },
+            onChanged: (str) {
+              changed.value = str;
+              if (widget.onChanged != null) {
+                widget.onChanged(str);
+              }
+            },
+            onSubmitted: quickStyle?.onSubmitted ??
+                inheritedWidget
+                    .getStyle(widget.quickStyle?.copyId)
+                    ?.onSubmitted ??
+                inheritedWidget.quickStyle?.onSubmitted ??
+                QuickConfig.instance.style?.onSubmitted,
+            textInputAction: textInputAction,
+          ),
         );
       },
     );
@@ -210,6 +253,8 @@ class QuickTextFieldState extends State<QuickTextField> {
       return TextInputType.number;
     } else if (quickInputType == QuickInputType.LetterNumber) {
       return TextInputType.visiblePassword;
+    } else if (quickInputType == QuickInputType.Multiline) {
+      return TextInputType.multiline;
     } else {
       return TextInputType.text;
     }
@@ -237,6 +282,9 @@ class QuickTextFieldState extends State<QuickTextField> {
         return [FilteringTextInputFormatter.allow(RegExp(r"[0-9a-zA-Z]"))];
         break;
       case QuickInputType.String:
+        return null;
+        break;
+      case QuickInputType.Multiline:
         return null;
         break;
     }

@@ -5,7 +5,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tenant_app/config/resource_api.dart';
+import 'package:tenant_app/config/repository_api.dart';
 import 'package:tenant_app/entity/UserEntity.dart';
 import 'package:tenant_app/extensions/extension.dart';
 import 'application.dart';

@@ -37,7 +37,7 @@ extension DioExtension on Future<RequestData> {
 
   Future<R> request<R>({bool isDialog = true}) async {
     if(isDialog) EasyLoading.show(status: 'loading...', maskType:EasyLoadingMaskType.clear, dismissOnTap: false);
-    await Future.delayed(Duration(seconds: 3));
+    //await Future.delayed(Duration(seconds: 3));
     Future<R> data;
     await this.then((value){
       if(value.code == 0){

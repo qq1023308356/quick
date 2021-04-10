@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class QuickScaffold extends Scaffold {
+class _QuickScaffold extends Scaffold {
   final bool extendBody;
   final bool extendBodyBehindAppBar;
   final PreferredSizeWidget appBar;
@@ -24,7 +24,7 @@ class QuickScaffold extends Scaffold {
   final bool drawerEnableOpenDragGesture;
   final bool endDrawerEnableOpenDragGesture;
 
-  QuickScaffold({
+  _QuickScaffold({
     Key key,
     this.appBar,
     this.body,
@@ -60,7 +60,7 @@ class QuickScaffold extends Scaffold {
           bottomNavigationBar: bottomNavigationBar,
           bottomSheet: bottomSheet,
           backgroundColor: backgroundColor,
-          resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
+          /*resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,*/
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
           primary: primary,
           drawerDragStartBehavior: drawerDragStartBehavior,

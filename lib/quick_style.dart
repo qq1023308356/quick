@@ -29,13 +29,13 @@ class QuickStyle {
   final EdgeInsetsGeometry padding;
   final Color background;
   final Decoration decoration;
-  final AlignmentGeometry alignment;
   final int titleFlex;
   final int detailFlex;
   final Axis axis;
   final double titleToDetailSpacing;
   final QuickControlType quickControlType;
   final QuickInputType quickInputType;
+  final bool obscureText;
   final bool isOpen;
   final bool isEdit;
   final bool isHide;
@@ -43,6 +43,8 @@ class QuickStyle {
   final List<Widget> slideList;
   final Function(int) onSlideTap;
   final int inputScale;
+  final ValueChanged<String> onSubmitted;
+  final TextInputAction textInputAction;
 
   const QuickStyle.dad({
     this.id,
@@ -58,7 +60,7 @@ class QuickStyle {
     this.endWidget,
     this.titleWidget,
     this.detailWidget,
-    this.axis = Axis.horizontal,
+    this.axis,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.width,
@@ -67,15 +69,15 @@ class QuickStyle {
     this.isDivider = false,
     this.constraints,
     this.margin,
-    this.padding = const EdgeInsets.symmetric(horizontal: 20),
+    this.padding,
     this.background,
     this.decoration,
-    this.alignment = Alignment.centerRight,
     this.titleFlex,
     this.detailFlex,
     this.titleToDetailSpacing = 5,
     this.quickControlType = QuickControlType.Text,
     this.quickInputType = QuickInputType.String,
+    this.obscureText = false,
     this.isOpen = false,
     this.isEdit = true,
     this.isSlide = false,
@@ -85,6 +87,8 @@ class QuickStyle {
     this.dividerPadding = 0,
     this.dividerColor,
     this.inputScale = 2,
+    this.onSubmitted,
+    this.textInputAction = TextInputAction.next,
   });
 
   const QuickStyle({
@@ -113,12 +117,12 @@ class QuickStyle {
     this.padding,
     this.background,
     this.decoration,
-    this.alignment,
     this.titleFlex,
     this.detailFlex,
     this.titleToDetailSpacing,
     this.quickControlType,
     this.quickInputType,
+    this.obscureText,
     this.isOpen,
     this.isEdit,
     this.isSlide,
@@ -128,6 +132,8 @@ class QuickStyle {
     this.dividerPadding,
     this.dividerColor,
     this.inputScale,
+    this.onSubmitted,
+    this.textInputAction = TextInputAction.next,
   });
 }
 

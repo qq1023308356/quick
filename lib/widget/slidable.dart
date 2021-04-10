@@ -794,7 +794,7 @@ class Slidable extends StatefulWidget {
   static SlidableState of(BuildContext context) {
     //return context.findAncestorStateOfType<SlidableState>();
     // ignore: deprecated_member_use
-    return context.ancestorStateOfType(const TypeMatcher<SlidableState>());
+    return context.findAncestorStateOfType<SlidableState>();
   }
 
   @override

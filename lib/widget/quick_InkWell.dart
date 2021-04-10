@@ -12,6 +12,7 @@ class QuickInkWell extends StatefulWidget {
   final GestureTapCallback onDoubleTap;
   final GestureLongPressCallback onLongPress;
   final GestureTapDownCallback onTapDown;
+  final bool isTap;
 
   const QuickInkWell(
     this.child, {
@@ -22,6 +23,7 @@ class QuickInkWell extends StatefulWidget {
     this.onTapDown,
     this.checking,
     this.data,
+    this.isTap = true,
   }) : super(key: key);
 
   @override
@@ -42,13 +44,16 @@ class _QuickInkWellState extends State<QuickInkWell> {
       }
       inheritedWidget.tips.add(quickCheck);
     }
-    return InkWell(
-      focusNode: FocusNode(skipTraversal: true),
-      child: widget.child,
-      onTap: widget.onTap,
-      onDoubleTap: widget.onDoubleTap,
-      onLongPress: widget.onLongPress,
-      onTapDown: widget.onTapDown,
+    return Container(
+      color: Colors.transparent,
+      child: InkWell(
+        focusNode: FocusNode(skipTraversal: true),
+        child: widget.child,
+        onTap: widget.isTap ? widget.onTap : null,
+        onDoubleTap: widget.onDoubleTap,
+        onLongPress: widget.onLongPress,
+        onTapDown: widget.onTapDown,
+      ),
     );
   }
 
